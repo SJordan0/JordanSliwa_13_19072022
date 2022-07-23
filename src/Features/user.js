@@ -27,10 +27,7 @@ export async function fetchOrUpdateToken(store, email, password) {
     body: JSON.stringify({ email, password }),
   };
   try {
-    const response = await fetch(
-      "http://localhost:3001/api/v1/user/login",
-      optionsToken
-    );
+    const response = await fetch("http://localhost:3001/api/v1/user/login", optionsToken);
     const res = await response.json();
     store.dispatch(actions.tokenResolved(res.body.token));
     if (rememberMeValue) {
@@ -39,7 +36,7 @@ export async function fetchOrUpdateToken(store, email, password) {
     }
     return res.body.token;
   } catch (error) {
-    console.log(typeof error);
+    console.log(error);
     store.dispatch(actions.tokenRejected(error));
     return null;
   }
@@ -61,10 +58,7 @@ export async function fetchOrUpdateData(store, token) {
     },
   };
   try {
-    const response = await fetch(
-      "http://localhost:3001/api/v1/user/profile",
-      requestForProfileHeaders
-    );
+    const response = await fetch("http://localhost:3001/api/v1/user/profile", requestForProfileHeaders);
     const res = await response.json();
     if (res.status === 401) {
       signOut(store);
@@ -77,8 +71,7 @@ export async function fetchOrUpdateData(store, token) {
 }
 
 export function checkStorageToken(store) {
-  const token =
-    localStorage.getItem("token") || sessionStorage.getItem("token");
+  const token = localStorage.getItem("token") || sessionStorage.getItem("token");
   if (token) {
     store.dispatch(actions.tokenFetching());
     store.dispatch(actions.tokenResolved(token));
@@ -107,10 +100,7 @@ export async function editProfile(store, firstName, lastName, token) {
     body: JSON.stringify({ firstName, lastName }),
   };
   try {
-    await fetch(
-      "http://localhost:3001/api/v1/user/profile",
-      optionsEditProfile
-    );
+    await fetch("http://localhost:3001/api/v1/user/profile", optionsEditProfile);
     store.dispatch(actions.editProfile(firstName, lastName));
   } catch (error) {
     store.dispatch(actions.dataRejected(error));
