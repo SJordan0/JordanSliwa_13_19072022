@@ -27,7 +27,7 @@ export async function fetchOrUpdateToken(store, email, password) {
     body: JSON.stringify({ email, password }),
   };
   try {
-    const response = await fetch("http://localhost:3001/api/v1/user/login", optionsToken);
+    const response = await fetch("http://localhost:3001/api/v1/user/login",optionsToken);
     const res = await response.json();
     store.dispatch(actions.tokenResolved(res.body.token));
     if (rememberMeValue) {
@@ -36,7 +36,7 @@ export async function fetchOrUpdateToken(store, email, password) {
     }
     return res.body.token;
   } catch (error) {
-    console.log(error);
+    console.log(typeof error);
     store.dispatch(actions.tokenRejected(error));
     return null;
   }
@@ -51,14 +51,14 @@ export async function fetchOrUpdateData(store, token) {
     return;
   }
   store.dispatch(actions.dataFetching());
-  const requestForProfileHeaders = {
+  const requestForProfilHeaders = {
     method: "POST",
     headers: {
       authorization: `Bearer ${token}`,
     },
   };
   try {
-    const response = await fetch("http://localhost:3001/api/v1/user/profile", requestForProfileHeaders);
+    const response = await fetch("http://localhost:3001/api/v1/user/profile",requestForProfilHeaders);
     const res = await response.json();
     if (res.status === 401) {
       signOut(store);
@@ -90,8 +90,8 @@ export function rememberMe(store) {
   store.dispatch(actions.remember());
 }
 
-export async function editProfile(store, firstName, lastName, token) {
-  const optionsEditProfile = {
+export async function editProfil(store, firstName, lastName, token) {
+  const optionsEditProfil = {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
@@ -100,8 +100,8 @@ export async function editProfile(store, firstName, lastName, token) {
     body: JSON.stringify({ firstName, lastName }),
   };
   try {
-    await fetch("http://localhost:3001/api/v1/user/profile", optionsEditProfile);
-    store.dispatch(actions.editProfile(firstName, lastName));
+    await fetch("http://localhost:3001/api/v1/user/profile",optionsEditProfil);
+    store.dispatch(actions.editProfil(firstName, lastName));
   } catch (error) {
     store.dispatch(actions.dataRejected(error));
   }
@@ -201,7 +201,7 @@ const {actions, reducer} = createSlice({
       draft.rememberMe = !draft.rememberMe;
       return;
     },
-    editProfile: {
+    editProfil: {
       prepare: (firstName, lastName) => ({
         payload: {firstName, lastName},
       }),
