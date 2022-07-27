@@ -9,7 +9,7 @@ basePath: /api/v1
 schemes:
   - http
 paths:
-  /accounts/accountId/transactionsMonth:
+  /accounts/transactionsMonth:
     get:
       security:
         - Bearer: []
@@ -35,7 +35,7 @@ paths:
           description: Invalid Fields
         '500':
           description: Internal Server Error
-  /accounts/accountId/transactionsMonth/transactionId:
+  /accounts/transactionId:
     get:
       security:
         - Bearer: []
