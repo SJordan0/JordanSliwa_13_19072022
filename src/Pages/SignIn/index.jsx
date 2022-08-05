@@ -3,7 +3,7 @@ import { faUserCircle } from "@fortawesome/free-solid-svg-icons"
 import React, { useEffect, useState } from "react";
 import { useSelector, useStore } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import {fetchOrUpdateToken, fetchOrUpdateData, rememberMe} from "../../Features/user";
+import {fetchOrUpdateToken, fetchOrUpdateData, rememberMe} from "../../Actions/actions";
 import { selectUser } from "../../Utils/selectors";
 
 export default function SignIn () {
@@ -55,7 +55,7 @@ export default function SignIn () {
             />
             <label htmlFor="remember-me">Remember me</label>
           </div>
-          {user.tokenError && <div className="errorInfo">Invalid data</div>}
+          {user.tokenStatus == "rejected"? <div className="errorInfo">Invalid E-mail or password </div> : ""}
           <button type="submit" className="sign-in-button">
             Sign In
           </button>

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useSelector, useStore } from "react-redux";
 import { selectUser } from "../../Utils/selectors";
-import { editProfil } from "../../Features/user";
+import { editProfil } from "../../Actions/actions";
 
 export default function Profil() {
 

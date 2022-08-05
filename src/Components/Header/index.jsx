@@ -4,7 +4,7 @@ import { faUserCircle, faSignOut } from "@fortawesome/free-solid-svg-icons"
 import { Link } from "react-router-dom"
 import React, { useEffect } from "react";
 import { useSelector, useStore } from "react-redux";
-import { signOut, checkStorageToken } from "../../Features/user";
+import { signOut, checkStorageToken } from "../../Actions/actions";
 import { selectUser } from "../../Utils/selectors";
 
 export default function Header () {
